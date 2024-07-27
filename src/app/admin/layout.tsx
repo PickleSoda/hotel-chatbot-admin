@@ -16,6 +16,9 @@ const AdminLayout = ({ children }:{children: any}) => {
           <Menu.Item key="2">
             <Link href="/admin/users">Users</Link>
           </Menu.Item>
+          <Menu.Item key="3">
+            <Link href="/admin/qna">QnA</Link>
+          </Menu.Item>
         </Menu>
       </Sider>
       <Layout>

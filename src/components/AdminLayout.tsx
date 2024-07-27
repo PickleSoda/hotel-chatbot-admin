@@ -16,6 +16,9 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
           <Menu.Item key="2">
             <Link href="/admin/users">Users</Link>
           </Menu.Item>
+          <Menu.Item key="2">
+            <Link href="/admin/qna">Users</Link>
+          </Menu.Item>
         </Menu>
       </Sider>
       <Layout>
