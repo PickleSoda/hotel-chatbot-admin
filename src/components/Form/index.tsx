@@ -7,13 +7,16 @@ import { QnA } from '@/types/qna';
 
 interface QnAFormProps {
     data: QnA[];
+    onFinnish?: (values: any) => void;
     }
 
-const QnAForm = ({ data }: QnAFormProps) => {
+const QnAForm = ({ data, onFinnish }: QnAFormProps) => {
   const [form] = Form.useForm();
 
   const onFinish = (values : any) => {
-    console.log('Success:', values);
+    if (onFinnish) {
+      onFinnish(values);
+    }
     // Add your form submission logic here
   };
 
@@ -22,7 +25,7 @@ const QnAForm = ({ data }: QnAFormProps) => {
       return <Description />;
     }
     if (item.answer === 'List') {
-      return <List value={["hi"]}/>;
+      return <List />;
     }
     return null;
   };

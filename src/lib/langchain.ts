@@ -1,20 +1,22 @@
 import { OpenAI } from '@langchain/openai';
 import { initializePinecone } from './pinecone';
+import { OpenAIEmbeddings } from "@langchain/openai";
 
-const createLangchainAgent = async () => {
-  const pineconeIndex = await initializePinecone();
+const createLangchainAgent = async (indexName: string) => {
+  const pineconeIndex = await initializePinecone(indexName);
 
   const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY as string,
     model: 'gpt-4o-mini',
   });
 
-//   const agent = new openai.Agent({
-//     vectorStore: pineconeIndex,
-//   });
+  const embeddings = new OpenAIEmbeddings({
+    apiKey: process.env.OPENAI_API_KEY as string,
+    batchSize: 512,
+    model: "text-embedding-3-small",
+  });
 
-//   return agent;
-return openai;
+  return { openai, embeddings, pineconeIndex };
 };
 
 export { createLangchainAgent };

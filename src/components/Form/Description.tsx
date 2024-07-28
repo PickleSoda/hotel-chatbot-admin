@@ -5,7 +5,7 @@ import { Input } from 'antd';
 const { TextArea } = Input;
 
 interface DescriptionProps {
-    value: string;
+    value?: string;
     onChange: (value: string) => void;
     }
 const Description = ({ value, onChange }:DescriptionProps) => (
