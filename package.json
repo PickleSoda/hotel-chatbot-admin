@@ -17,6 +17,7 @@
     "@prisma/client": "^5.17.0",
     "@tanstack/react-query": "^5.51.15",
     "antd": "^5.19.3",
+    "axios": "^1.7.2",
     "langchain": "^0.2.11",
     "next": "14.2.5",
     "openai": "^4.53.2",

@@ -36,13 +36,16 @@ const QnAForm = ({ data, onFinish }: QnAFormProps) => {
 
   const renderField = (item: QnA) => {
     if (item.answer === 'Description') {
-      return <Description/>;
+      // @ts-ignore
+      return <Description />;
     }
     if (item.answer === 'List') {
+      // @ts-ignore
       return <List />;
     }
     return null;
   };
+  
 
   return (
     <Spin spinning={loading}>
