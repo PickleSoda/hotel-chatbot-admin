@@ -1,16 +1,12 @@
-const { PineconeClient } = require('@pinecone-database/pinecone');
+import { Pinecone } from '@pinecone-database/pinecone';
 
-const pinecone = new PineconeClient({
-  apiKey: process.env.PINECONE_API_KEY,
-  environment: process.env.PINECONE_ENVIRONMENT,
+const pinecone = new Pinecone({
+  apiKey: process.env.PINECONE_API_KEY as string,
 });
 
-const indexName = 'your-index-name';
+const indexName = 'ionnow';
 
-const initializePinecone = async () => {
-  await pinecone.init();
+export const initializePinecone = async () => {
   const index = pinecone.Index(indexName);
   return index;
 };
-
-module.exports = initializePinecone;
