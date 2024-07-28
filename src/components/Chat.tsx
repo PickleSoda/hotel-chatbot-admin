@@ -11,10 +11,10 @@ const ChatComponent: React.FC = () => {
   const mutation = useMutation({
     mutationFn: async (message: string) => {
       const response = await axios.post('/api/chat', { message });
-      return response.data;
+      return response.data.kwargs.content;
     },
     onSuccess: (data) => {
-      setMessages((prevMessages) => [...prevMessages, `You: ${inputValue}`, `Bot: ${data.response}`]);
+      setMessages((prevMessages) => [...prevMessages, `You: ${inputValue}`, `Bot: ${data}`]);
       setInputValue('');
     },
     onError: () => {
@@ -25,6 +25,12 @@ const ChatComponent: React.FC = () => {
   const handleSend = () => {
     if (inputValue.trim()) {
       mutation.mutate(inputValue.trim());
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && !mutation.isPending) {
+      handleSend();
     }
   };
 
@@ -41,21 +47,27 @@ const ChatComponent: React.FC = () => {
           )}
           style={{ marginBottom: '20px', height: 'calc(100vh - 300px)', overflowY: 'auto' }}
         />
-      <div style={{display: 'flex', flexDirection: 'row'}}>
-
-        <Input
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          placeholder="Type your message here..."
-          style={{ marginBottom: '10px' }}
-        />
-        <Button type="primary" onClick={handleSend} loading={mutation.isPending}>
-          Send
-        </Button>
-      </div>
+        <div style={{ display: 'flex', flexDirection: 'row' }}>
+          <Input
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            onKeyPress={handleKeyPress}
+            placeholder="Type your message here..."
+            style={{ marginBottom: '10px', flex: 1 }}
+            disabled={mutation.isPending}
+          />
+          <Button
+            type="primary"
+            onClick={handleSend}
+            loading={mutation.isPending}
+            disabled={mutation.isPending}
+            style={{ marginLeft: '10px' }}
+          >
+            Send
+          </Button>
+        </div>
       </div>
     </>
-
   );
 };
 

@@ -1,11 +1,11 @@
-import { OpenAI } from '@langchain/openai';
+import { ChatOpenAI } from '@langchain/openai';
 import { initializePinecone } from './pinecone';
 import { OpenAIEmbeddings } from "@langchain/openai";
 
 const createLangchainAgent = async (indexName: string) => {
   const pineconeIndex = await initializePinecone(indexName);
 
-  const openai = new OpenAI({
+  const openai = new ChatOpenAI({
     apiKey: process.env.OPENAI_API_KEY as string,
     model: 'gpt-4o-mini',
   });

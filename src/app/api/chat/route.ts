@@ -8,8 +8,7 @@ export async function POST(req: NextRequest) {
   }
 
   const response = await handleQuery(message, "hotel-management");
-
-  return NextResponse.json({ response }, { status: 200 });
+  return NextResponse.json(response, { status: 200 });
 }
 
 export async function OPTIONS() {

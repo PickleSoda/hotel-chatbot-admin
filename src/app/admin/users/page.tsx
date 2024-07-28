@@ -1,4 +1,3 @@
-import AdminLayout from '../../../components/AdminLayout';
 import { Table } from 'antd';
 import { prisma } from '../../../lib/prisma';
 
