@@ -88,7 +88,7 @@ const QnATable = () => {
 
       <Modal
         title={currentQnA ? "Edit Q&A" : "Add Q&A"}
-        visible={isModalOpen}
+        open={isModalOpen}
         onCancel={() => {
           setIsModalOpen(false);
           setCurrentQnA(null);

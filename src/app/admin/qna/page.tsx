@@ -1,4 +1,3 @@
-import AdminLayout from '../../../components/AdminLayout';
 import QnATable from '../../../components/QnATable';
 
 const QnAPage = () => {

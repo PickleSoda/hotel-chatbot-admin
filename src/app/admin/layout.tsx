@@ -1,29 +1,55 @@
 'use client';
 
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Drawer, Button } from 'antd';
+import { MenuOutlined } from '@ant-design/icons';
 import Link from 'next/link';
+import { useState } from 'react';
 
 const { Header, Content, Sider } = Layout;
 
-const AdminLayout = ({ children }:{children: any}) => {
+const AdminLayout = ({ children }: { children: any }) => {
+  const [drawerVisible, setDrawerVisible] = useState(false);
+
+  const menuItems = [
+    { key: '1', label: 'Chat', href: '/admin/chat' },
+    { key: '2', label: 'Users', href: '/admin/users' },
+    { key: '3', label: 'QnA', href: '/admin/qna' },
+  ];
+
+  const renderMenu = () => (
+    <Menu theme="dark" mode="inline" >
+      <Menu.Item key={0} style={{fontWeight:"800", fontSize: "16px"}}>
+        <Link href={"/admin"}>Dashboard</Link>
+      </Menu.Item>
+      {menuItems.map(item => (
+        <Menu.Item key={item.key}>
+          <Link href={item.href}>{item.label}</Link>
+        </Menu.Item>
+      ))}
+    </Menu>
+  );
+
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <Sider>
-        <Menu theme="dark" mode="inline">
-          <Menu.Item key="1">
-            <Link href="/admin">Dashboard</Link>
-          </Menu.Item>
-          <Menu.Item key="2">
-            <Link href="/admin/users">Users</Link>
-          </Menu.Item>
-          <Menu.Item key="3">
-            <Link href="/admin/qna">QnA</Link>
-          </Menu.Item>
-        </Menu>
+      <Sider
+        breakpoint="lg"
+        collapsedWidth="0"
+        onBreakpoint={(broken) => {
+          if (broken) {
+            setDrawerVisible(false);
+          }
+        }}
+        style={{ display: drawerVisible ? 'none' : 'block' }}
+      >
+        {renderMenu()}
       </Sider>
+
       <Layout>
-        <Header style={{ background: '#fff', padding: 0 }} />
-        <Content style={{ margin: '0 16px' }}>
+        <Header style={{ background: '#fff', padding: 0, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+
+          <div style={{ flex: 1, textAlign: 'center' }}>Admin Panel</div>
+        </Header>
+        <Content style={{ margin: '16px' }}>
           {children}
         </Content>
       </Layout>
