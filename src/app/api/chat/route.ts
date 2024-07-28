@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Query is required' }, { status: 400 });
   }
 
-  const agent = await createLangchainAgent();
+  const agent = await createLangchainAgent("hotel-management");
   const response = await agent.invoke(message);
 
   return NextResponse.json({ response }, { status: 200 });

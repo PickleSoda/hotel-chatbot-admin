@@ -1,5 +1,3 @@
-import AdminLayout from '../../components/AdminLayout';
-
 const AdminPage = () => {
   return (
     <>
