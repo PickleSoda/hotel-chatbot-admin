@@ -5,16 +5,11 @@ import { Spin } from 'antd';
 import QnAForm from '@/components/Form';
 import { QnA } from '@/types/qna';
 import {submitHotelForm} from '@/services/hotelFormService';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
 const HotelFormPage = () => {
     const { data: qnas, isLoading } = useQuery<QnA[], Error>({
         queryKey: ['qnas'],
         queryFn: fetchQnAs,
-      });
-      const [formData, setFormData] = useState<Record<string, string | string[]>>({
-        "What are the best local restaurants for trying regional cuisine?": ["It depends on several factors such as price, duration, and personal taste. Here are some of our suggestions:", "Bip Bop restaurant is one of the best ones", "Ching chong is the most expensive"],
-        "Can I request an extra bed or crib?": "Yes, extra crib is available"
       });
 
       const mutation = useMutation<void, Error, Record<string, string | string[]>>({
@@ -27,15 +22,27 @@ const HotelFormPage = () => {
         },
       });
 
-  const onFinnish = (values: any) => {
-    console.log('onFinnish', values);
-    mutation.mutate(formData);
+  const onFinish = (values: any) => {
+    console.log('Form data:', values);
+    // Filter out items with null values
+    const filteredFormData = Object.fromEntries(
+      Object.entries(values).filter(([_, value]) => value !== undefined && value !== '')
+    );
+
+    // Check if the filteredFormData is empty
+    if (Object.keys(filteredFormData).length === 0) {
+      throw new Error('No valid data to process');
+    }
+
+    console.log('Filtered form data:', filteredFormData);
+
+    mutation.mutate(values);
   }
   if (isLoading || !qnas) {
     return <Spin />;
   }
 
-  return <QnAForm data={qnas} onFinnish={onFinnish} />;
+  return <QnAForm data={qnas} onFinish={onFinish} />;
 };
 
 export default HotelFormPage;

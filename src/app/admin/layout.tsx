@@ -12,9 +12,9 @@ const AdminLayout = ({ children }: { children: any }) => {
 
   const menuItems = [
     { key: '1', label: 'Chat', href: '/admin/chat' },
-    { key: '2', label: 'Users', href: '/admin/users' },
+    // { key: '2', label: 'Users', href: '/admin/users' },
     { key: '3', label: 'QnA', href: '/admin/qna' },
-    { key: '4', label: 'Hotels', href: '/admin/hotels' },
+    // { key: '4', label: 'Hotels', href: '/admin/hotels' },
     { key: '5', label: 'Hotel Form', href: '/admin/hotel-form' },
   ];
 
